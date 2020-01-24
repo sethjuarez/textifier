@@ -5,6 +5,10 @@ on: [push]
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+        WEB_PATH: $web
+        ACCOUNT: ${{ secrets.account }}
+        KEY: ${{ secrets.key }}
     steps:
     # checkout the repo
     - uses: actions/checkout@master
@@ -14,16 +18,13 @@ jobs:
       run: |
         npm install
         npm run build --if-present
-    # zip/package
-    - name: package contents
-      run: |
-        cd dist
-        zip -r build.zip *
-        cd ..
-        mv dist/build.zip .
-    - uses: azure/login@v1
-      with:
-        creds: ${{ secrets.CREDENTIALS }}
 
-    - run: |
-        az webapp deployment source config-zip -g ${{ secrets.RG }} -n ${{ secrets.APP }} --src build.zip
+      # clear old site
+      - name: clear old site
+      run : |
+        az storage blob delete-batch --source $WEB_PATH --account-name $ACCOUNT --account-key $KEY
+
+    # push to azure storage
+    - name: push to azure storage
+      run : |
+        az storage blob upload-batch -s dist -d $WEB_PATH --account-name $ACCOUNT --account-key $KEY
