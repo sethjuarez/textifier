@@ -1,3 +1,3 @@
 {
-    "absaEndpoint": "http://localhost:7071/api/sentiment"
+    "absaEndpoint": "https://textifierfunc.azurewebsites.net/api/sentiment"
 }
