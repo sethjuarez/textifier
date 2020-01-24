@@ -21,10 +21,10 @@ jobs:
 
       # clear old site
       - name: clear old site
-      run : |
-        az storage blob delete-batch --source $WEB_PATH --account-name $ACCOUNT --account-key $KEY
+        run : |
+            az storage blob delete-batch --source $WEB_PATH --account-name $ACCOUNT --account-key $KEY
 
     # push to azure storage
     - name: push to azure storage
-      run : |
-        az storage blob upload-batch -s dist -d $WEB_PATH --account-name $ACCOUNT --account-key $KEY
+        run : |
+            az storage blob upload-batch -s dist -d $WEB_PATH --account-name $ACCOUNT --account-key $KEY
