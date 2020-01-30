@@ -42,7 +42,7 @@ export default {
                 }
             })
             this.parsed = response.data.html
-            //console.log(response)
+            console.log(response)
             this.processing = false
         } catch(error) {
             // uh oh - log error and reset
@@ -76,10 +76,10 @@ export default {
     height:30px;
     display:table-cell;
     text-align:center;
-    background:rgb(255, 166, 0);
+    background:rgb(172, 172, 172);
     border:1px solid #000;
-    bottom: 10px;
-    right: 10px;
+    top: 10px;
+    left: 10px;
     position: absolute;
     padding-top: 10px;
 }
